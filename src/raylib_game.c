@@ -22,6 +22,9 @@
 #include <stdlib.h>                         // Required for: 
 #include <string.h>                         // Required for: 
 
+#include "Evidence.h"
+#include "GameState.h"
+
 //----------------------------------------------------------------------------------
 // Defines and Macros
 //----------------------------------------------------------------------------------
@@ -37,20 +40,26 @@
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-typedef enum { 
-    SCREEN_LOGO = 0, 
-    SCREEN_TITLE, 
-    SCREEN_GAMEPLAY, 
-    SCREEN_ENDING
-} GameScreen;
 
-// TODO: Define your custom data types here
+// https://lospec.com/palette-list/light-academia-8 ---------
+// Light Academia 8 Palette by Chase Stemel
+// Same palette is used for sprites!
+
+#define LA8BLACK (Color){41, 30, 22, 255}
+#define LA8DARKGREY (Color){64, 53, 49, 255}
+#define LA8GREY (Color){71, 60, 54, 255}
+#define LA8LIGHTGREY (Color){217, 193, 180, 255}
+#define LA8WHITE (Color){240, 244, 214, 255}
+#define LA8TAN (Color){217, 172, 132, 255}
+#define LA8DARKTAN (Color){140, 89, 59, 255}
+#define LA8MAROON (Color){112, 47, 62, 255}
+//-----------------------------------------------------------
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
 //----------------------------------------------------------------------------------
-static const int screenWidth = 800;
-static const int screenHeight = 450;
+static const int screenWidth = 960;
+static const int screenHeight = 720;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
@@ -59,7 +68,7 @@ static RenderTexture2D target = { 0 };  // Render texture to render our game
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-static void UpdateDrawFrame(void);      // Update and Draw one frame
+static void UpdateDrawFrame(GameState* state);      // Update and Draw one frame
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -72,7 +81,7 @@ int main(void)
 
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(screenWidth, screenHeight, "raylib gamejam template");
+    InitWindow(screenWidth, screenHeight, "D.A. Braithwaite");
     
     // TODO: Load resources / Initialize variables at this point
     
@@ -85,20 +94,28 @@ int main(void)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
     SetTargetFPS(60);     // Set our game frames-per-second
+    
+    // broken bullshit
+    Image icon = LoadImage("resources/icon-10x.ico");
+    ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
+    SetWindowIcon(icon);
+
+    GameState* state = InitGameState();
+
     //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button
     {
-        UpdateDrawFrame();
+        UpdateDrawFrame(state);
     }
 #endif
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadRenderTexture(target);
-    
-    // TODO: Unload all loaded resources at this point
+    UnloadImage(icon);
+    FreeGameState(state);
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -109,8 +126,9 @@ int main(void)
 //--------------------------------------------------------------------------------------------
 // Module functions definition
 //--------------------------------------------------------------------------------------------
+
 // Update and draw frame
-void UpdateDrawFrame(void)
+void UpdateDrawFrame(GameState* state)
 {
     // Update
     //----------------------------------------------------------------------------------
@@ -122,20 +140,26 @@ void UpdateDrawFrame(void)
     // Render game screen to a texture, 
     // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
-        ClearBackground(RAYWHITE);
+        ClearBackground(LA8BLACK);
         
         // TODO: Draw your game screen here
-        DrawText("Welcome to raylib NEXT gamejam!", 150, 140, 30, BLACK);
-        DrawRectangleLinesEx((Rectangle){ 0, 0, screenWidth, screenHeight }, 16, BLACK);
+        DrawText("D.A. Braithwaite", screenWidth / 2 - 17*10, 256, 48, LA8WHITE);
         
     EndTextureMode();
     
     // Render to screen (main framebuffer)
     BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(LA8WHITE);
         
         // Draw render texture to screen, scaled if required
-        DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, (Rectangle){ 0, 0, (float)target.texture.width, (float)target.texture.height }, (Vector2){ 0, 0 }, 0.0f, WHITE);
+        DrawTexturePro(
+            target.texture,
+            (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height }, 
+            (Rectangle){ 0, 0, (float)target.texture.width, (float)target.texture.height }, 
+            (Vector2){ 0, 0 }, 
+            0.0f, 
+            LA8WHITE
+        );
 
         // TODO: Draw everything that requires to be drawn at this point, maybe UI?
 
