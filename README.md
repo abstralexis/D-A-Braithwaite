@@ -40,47 +40,48 @@ _Copyright (c) 2022-2024 Ramon Santamaria ([@raysan5](https://twitter.com/raysan
 
 -----------------------------------
 
-## $(Game Title)
-
-![$(Game Title)](screenshots/screenshot000.png "$(Game Title)")
+## D.A. Braithwaite
 
 ### Description
 
-$(Your Project Description)
+You are a 1950's detective agent, David Braithwaite. You are tasked with solving various crimes around Manhattan, from petty theft to homicide. Interview suspects, take photos of evidence, and connect the dots to find the culprit!
 
 ### Features
 
- - $(Project Feature 01)
- - $(Project Feature 02)
- - $(Project Feature 03)
+#### Minimum Viable Product
+- [ ] Title Screen
+- [ ] Suspect Interviews
+- [ ] Evidence Collecting on Scene
+- [ ] Pinboard (Join evidence with string, not cliche I swear!)
+- [ ] Put him behind bars!
+
+#### Extras
+- [ ] More cases?
+- [ ] Voice Acting
+- [ ] Better art :3
 
 ### Controls
 
-Keyboard/Mouse:
- - $(Project Controls 01)
- - $(Project Controls 02)
- - $(Project Controls 03)
+Click or tap!
 
 ### Screenshots
 
-_TODO: Show your game to the world, animated GIFs recommended!._
+```rust
+let screenshots = todo!();
+```
 
 ### Developers
 
- - $(Developer 01) - $(Role/Tasks Developed)
- - $(Developer 02) - $(Role/Tasks Developed)
- - $(Developer 03) - $(Role/Tasks Developed)
+Just me, Alexis!
 
 ### Links
 
- - YouTube Gameplay: $(YouTube Link)
- - itch.io Release: $(itch.io Game Page)
- - Steam Release: $(Steam Game Page)
+```rust
+let links = todo!();
+```
 
 ### License
 
 This project sources are licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
-$(Additional Licenses)
-
-*Copyright (c) $(Year) $(User Name) ($(User Twitter/GitHub Name))*
+*Copyright (c) 2024 Alexis Williams (💻 abstralexis)*
