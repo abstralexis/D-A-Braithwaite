@@ -3,7 +3,7 @@
 Evidence* MakeButcherMugshot(void)
 {
 	return MakeEvidence(
-		"../resources/polaroid-jc-mugshotx10.png",
+		"./resources/polaroid-jc-mugshotx10.png",
 		"butcher_mugshot",
 		50,
 		50
@@ -13,7 +13,7 @@ Evidence* MakeButcherMugshot(void)
 Evidence* MakeBlankPolaroid(void)
 {
 	return MakeEvidence(
-		"../resources/polaroidx10.png",
+		"./resources/polaroidx10.png",
 		"blank_polaroid",
 		100,
 		100
@@ -22,7 +22,7 @@ Evidence* MakeBlankPolaroid(void)
 
 Evidence* MakeKnifeBlood(void) {
 	return MakeEvidence(
-		"../resources/polaroid-knife-bloodx10.png",
+		"./resources/polaroid-knife-bloodx10.png",
 		"knife_blood",
 		150,
 		150

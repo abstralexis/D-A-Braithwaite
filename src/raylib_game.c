@@ -84,7 +84,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "D.A. Braithwaite");
 
     // broken bullshit
-    Image icon = LoadImage("../resources/icon-10x.png");
+    Image icon = LoadImage("./resources/icon-10x.png");
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
 
