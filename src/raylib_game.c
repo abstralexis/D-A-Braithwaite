@@ -63,12 +63,13 @@ static const int screenHeight = 720;
 
 static RenderTexture2D target = { 0 };  // Render texture to render our game
 
+struct GameState* g_state;
 // TODO: Define global variables here, recommended to make them static
 
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-static void UpdateDrawFrame(GameState* state);      // Update and Draw one frame
+static void UpdateDrawFrame(void);      // Update and Draw one frame
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -90,24 +91,24 @@ int main(void)
     target = LoadRenderTexture(screenWidth, screenHeight);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
 
-#if defined(PLATFORM_WEB)
-    emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
-#else
-    SetTargetFPS(60);     // Set our game frames-per-second
-    
     // broken bullshit
     Image icon = LoadImage("resources/icon-10x.ico");
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
 
-    GameState* state = InitGameState();
+    g_state = InitGameState();
+
+#if defined(PLATFORM_WEB)
+    emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+#else
+    SetTargetFPS(60);     // Set our game frames-per-second
 
     //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button
     {
-        UpdateDrawFrame(state);
+        UpdateDrawFrame();
     }
 #endif
 
@@ -115,7 +116,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadRenderTexture(target);
     UnloadImage(icon);
-    FreeGameState(state);
+    FreeGameState(g_state);
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -128,7 +129,7 @@ int main(void)
 //--------------------------------------------------------------------------------------------
 
 // Update and draw frame
-void UpdateDrawFrame(GameState* state)
+void UpdateDrawFrame(void)
 {
     // Update
     //----------------------------------------------------------------------------------
