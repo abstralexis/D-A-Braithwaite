@@ -24,6 +24,7 @@
 
 #include "Evidence.h"
 #include "GameState.h"
+#include "GameObjects.h"
 
 //----------------------------------------------------------------------------------
 // Defines and Macros
@@ -61,8 +62,6 @@
 static const int screenWidth = 960;
 static const int screenHeight = 720;
 
-static RenderTexture2D target = { 0 };  // Render texture to render our game
-
 struct GameState* g_state;
 // TODO: Define global variables here, recommended to make them static
 
@@ -83,20 +82,17 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "D.A. Braithwaite");
-    
-    // TODO: Load resources / Initialize variables at this point
-    
-    // Render texture to draw full screen, enables screen scaling
-    // NOTE: If screen is scaled, mouse input should be scaled proportionally
-    target = LoadRenderTexture(screenWidth, screenHeight);
-    SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
 
     // broken bullshit
-    Image icon = LoadImage("resources/icon-10x.ico");
+    Image icon = LoadImage("../resources/icon-10x.png");
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
 
+    // Init the state ready for the beginning of Case 1.
     g_state = InitGameState();
+    g_state->collectedEvidence[0] = MakeButcherMugshot();
+    g_state->collectedEvidence[1] = MakeBlankPolaroid();
+    g_state->collectedEvidence[2] = MakeKnifeBlood();
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -114,7 +110,6 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    UnloadRenderTexture(target);
     UnloadImage(icon);
     FreeGameState(g_state);
 
@@ -131,38 +126,21 @@ int main(void)
 // Update and draw frame
 void UpdateDrawFrame(void)
 {
-    // Update
-    //----------------------------------------------------------------------------------
-    // TODO: Update variables / Implement example logic at this point
-    //----------------------------------------------------------------------------------
-
-    // Draw
-    //----------------------------------------------------------------------------------
-    // Render game screen to a texture, 
-    // it could be useful for scaling or further shader postprocessing
-    BeginTextureMode(target);
-        ClearBackground(LA8BLACK);
-        
-        // TODO: Draw your game screen here
-        DrawText("D.A. Braithwaite", screenWidth / 2 - 17*10, 256, 48, LA8WHITE);
-        
-    EndTextureMode();
-    
     // Render to screen (main framebuffer)
     BeginDrawing();
-        ClearBackground(LA8WHITE);
-        
-        // Draw render texture to screen, scaled if required
-        DrawTexturePro(
-            target.texture,
-            (Rectangle){0, 0, (float)target.texture.width, -(float)target.texture.height }, 
-            (Rectangle){ 0, 0, (float)target.texture.width, (float)target.texture.height }, 
-            (Vector2){ 0, 0 }, 
-            0.0f, 
-            LA8WHITE
-        );
 
-        // TODO: Draw everything that requires to be drawn at this point, maybe UI?
+        ClearBackground(LA8BLACK);
+
+        // TODO: Draw your game screen here
+        DrawText("D.A. Braithwaite", screenWidth / 2 - 17 * 10, 256, 48, LA8WHITE);
+
+        // Draw evidence 0 (butcher mugshot)
+        DrawTexture(
+            g_state->collectedEvidence[0]->tex,
+            g_state->collectedEvidence[0]->location.x,
+            g_state->collectedEvidence[0]->location.y,
+            WHITE
+        );
 
     EndDrawing();
     //----------------------------------------------------------------------------------  

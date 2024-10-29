@@ -21,6 +21,10 @@ and the id for making it easy to recognise. the x and y are the positions on the
 when on the pinboard screen. Caller has the responsibility of freeing.
 Can only be called once an OpenGL context is active, 
 as it uses raylib.h's `LoadTextureFromImage`.
+The x, y coordinates are just initial ones. Recommended
+to make them unique enough from eachother so the user can 
+see whether there are multiple pieces of evidence that they 
+can move.
 */
 Evidence* MakeEvidence(const char* imgPath, const char* id, int x, int y);
 
