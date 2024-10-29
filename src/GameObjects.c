@@ -28,3 +28,8 @@ Evidence* MakeKnifeBlood(void) {
 		150
 	);
 }
+
+Texture2D MakePinTex(void)
+{
+	return LoadTexture("./resources/pinx5.png");
+}

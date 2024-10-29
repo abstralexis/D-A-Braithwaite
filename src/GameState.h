@@ -32,6 +32,7 @@ typedef struct GameState
     // The evidence that has been so far collected.
     // Pointer to an array of pointers to Evidence.
     Evidence* collectedEvidence[EVIDENCE_MAX];
+    Texture2D pinTexture;
 } GameState;
 
 /*

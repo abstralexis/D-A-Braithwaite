@@ -83,7 +83,6 @@ int main(void)
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "D.A. Braithwaite");
 
-    // broken bullshit
     Image icon = LoadImage("./resources/icon-10x.png");
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
@@ -134,11 +133,26 @@ void UpdateDrawFrame(void)
         // TODO: Draw your game screen here
         DrawText("D.A. Braithwaite", screenWidth / 2 - 17 * 10, 256, 48, LA8WHITE);
 
+        // TODO: Automate evidence drawing
         // Draw evidence 0 (butcher mugshot)
-        DrawTexture(
+        DrawTextureEx(
             g_state->collectedEvidence[0]->tex,
-            g_state->collectedEvidence[0]->location.x,
-            g_state->collectedEvidence[0]->location.y,
+            g_state->collectedEvidence[0]->location,
+            0.0f,
+            0.5f,
+            WHITE
+        );
+
+        DrawTextureEx(
+            g_state->pinTexture,
+            (Vector2){ 
+                g_state->collectedEvidence[0]->tex.width / 4 
+                    + g_state->collectedEvidence[0]->location.x
+                    - g_state->pinTexture.width / 2,
+                15 + g_state->collectedEvidence[0]->location.y
+            },
+            0.0f,
+            1.0f,
             WHITE
         );
 

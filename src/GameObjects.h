@@ -37,6 +37,11 @@ at the scene.
 */
 Evidence* MakeKnifeBlood(void);
 
+/*
+Make the texture for the pins.
+*/
+Texture2D MakePinTex(void);
+
 // TODO: Add the rest!
 
 // ----- Case 2 -----------------------------------------------------------------------------------

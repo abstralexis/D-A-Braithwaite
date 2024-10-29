@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "GameObjects.h"
 
 GameState* InitGameState(void)
 {
@@ -11,6 +12,8 @@ GameState* InitGameState(void)
 		evidenceArray[i] = malloc(sizeof(struct GameState));
 	}
 	memcpy(pGameState->collectedEvidence, evidenceArray, sizeof(evidenceArray));
+
+	pGameState->pinTexture = MakePinTex();
 
 	return pGameState;
 }
