@@ -1,0 +1,1 @@
+make -C src && cd src && raylib_game.exe && cd ..
