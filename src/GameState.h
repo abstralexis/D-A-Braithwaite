@@ -33,6 +33,9 @@ typedef struct GameState
     // Pointer to an array of pointers to Evidence.
     Evidence* collectedEvidence[EVIDENCE_MAX];
     Texture2D pinTexture;
+    Texture2D sceneBackgroundTex;
+    Texture2D smallReceiptTex;
+    Sound testAudio;
 } GameState;
 
 /*

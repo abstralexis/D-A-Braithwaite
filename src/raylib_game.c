@@ -83,6 +83,8 @@ int main(void)
     //--------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "D.A. Braithwaite");
 
+    InitAudioDevice();
+
     Image icon = LoadImage("./resources/icon-10x.png");
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
@@ -111,6 +113,8 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadImage(icon);
     FreeGameState(g_state);
+
+    CloseAudioDevice();
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -155,6 +159,8 @@ void UpdateDrawFrame(void)
             1.0f,
             WHITE
         );
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) PlaySound(g_state->testAudio);
 
     EndDrawing();
     //----------------------------------------------------------------------------------  

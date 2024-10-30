@@ -33,3 +33,23 @@ Texture2D MakePinTex(void)
 {
 	return LoadTexture("./resources/pinx5.png");
 }
+
+Evidence* MakeLargeReceipt(void)
+{
+	return MakeEvidence(
+		"./resources/receipt.png",
+		"receipt_note",
+		200,
+		200
+	);
+}
+
+Texture2D MakeReceiptButtonTex(void)
+{
+	return LoadTexture("./resources/receipt-icon.png");
+}
+
+Texture2D MakeScene1BGTex(void)
+{
+	return LoadTexture("./resources/receipt-icon.png");
+}

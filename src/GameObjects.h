@@ -42,6 +42,21 @@ Make the texture for the pins.
 */
 Texture2D MakePinTex(void);
 
+/*
+Make the evidence for the large receipt.
+*/
+Evidence* MakeLargeReceipt(void);
+
+/*
+Make the texture for the small receipt button
+*/
+Texture2D MakeReceiptButtonTex(void);
+
+/*
+Make the texture for the background in scene 1.
+*/
+Texture2D MakeScene1BGTex(void);
+
 // TODO: Add the rest!
 
 // ----- Case 2 -----------------------------------------------------------------------------------
